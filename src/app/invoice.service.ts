@@ -21,7 +21,7 @@ export class InvoiceService {
   }
 
   getCompanyData(): Observable<Company> {
-    return this.http.get<Company>('assets/company.json');
+    return this.http.get<Company>('/api/company');
   }
 
   calculateTotal(items: InvoiceItem[]): number {

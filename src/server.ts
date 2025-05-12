@@ -5,14 +5,29 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
+import fs from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
+const taskFolder = resolve(process.cwd(), 'src/assets');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
+
+app.get('/api/company', async (req, res) => {
+  try {
+    const companyData = await fs.readFile(
+      resolve(taskFolder, 'company.json'),
+      'utf-8',
+    );
+    res.json(JSON.parse(companyData));
+  } catch (error) {
+    console.error('Error reading company data:', error);
+    res.status(500).json({ error: 'Failed to load company data' });
+  }
+});
 
 /**
  * Example Express Rest API endpoints can be defined here.
