@@ -1,0 +1,21 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.company-info {
+  margin-bottom: 30px;
+}
+
+.invoice-items {
+  margin-top: 20px;
+}
+
+.loading {
+  font-style: italic;
+  color: #777;
+}
+
+.text-right {
+  text-align: right;
+}

@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>Invoice Summary</h2>
+
+  <div
+    class="company-info"
+    *ngIf="company$ | async as company; else loadingCompany"
+  >
+    <h3>{{ company.name }}</h3>
+    <p>{{ company.address }}</p>
+    <p>Phone: {{ company.phones.join(", ") }}</p>
+  </div>
+
+  <ng-template #loadingCompany>
+    <div class="loading">Loading company information...</div>
+  </ng-template>
+
+  <div class="invoice-items">
+    <h3>Items</h3>
+
+    <div *ngIf="items.length === 0" class="alert alert-info">No items</div>
+
+    <table *ngIf="items.length > 0" class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Count</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>{{ item.name }}</td>
+          <td>{{ item.count }}</td>
+          <td>{{ item.price | currency }}</td>
+          <td>{{ item.count * item.price | currency }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-right"><strong>Total:</strong></td>
+          <td>
+            <strong>{{ total | currency }}</strong>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <a routerLink="/" class="btn btn-primary">Back to Form</a>
+  </div>
+</div>
