@@ -14,38 +14,66 @@
     <div class="loading">Loading company information...</div>
   </ng-template>
 
-  <div class="invoice-items">
-    <h3>Items</h3>
+  <div class="all-invoices">
+    <h3>All Invoices</h3>
 
-    <div *ngIf="items.length === 0" class="alert alert-info">No items</div>
+    <div *ngIf="allInvoices.length === 0" class="alert alert-info">
+      No invoices found. Please create an invoice first.
+    </div>
 
-    <table *ngIf="items.length > 0" class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Count</th>
-          <th>Price</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of items">
-          <td>{{ item.name }}</td>
-          <td>{{ item.count }}</td>
-          <td>{{ item.price | currency }}</td>
-          <td>{{ item.count * item.price | currency }}</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="3" class="text-right"><strong>Total:</strong></td>
-          <td>
-            <strong>{{ total | currency }}</strong>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
-
-    <a routerLink="/" class="btn btn-primary">Back to Form</a>
+    <div
+      *ngFor="let invoice of allInvoices; let i = index"
+      class="invoice-card"
+    >
+      <h4>Invoice #{{ i + 1 }}</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Count</th>
+            <th>Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of invoice">
+            <td>{{ item.name }}</td>
+            <td>{{ item.count }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>{{ item.count * item.price | currency }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="text-right"><strong>Total:</strong></td>
+            <td>
+              <strong>{{ calculateInvoiceTotal(invoice) | currency }}</strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
+
+  <div class="summary-totals" *ngIf="allInvoices.length > 0">
+    <h3>Overall:</h3>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              <strong>Total Items Count:</strong> {{ getTotalItemsCount() }}
+            </p>
+          </div>
+          <div class="col-md-6 text-left">
+            <p>
+              <strong>Total Price:</strong> {{ getTotalPrice() | currency }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a routerLink="/" class="btn btn-primary">Back to Form</a>
 </div>

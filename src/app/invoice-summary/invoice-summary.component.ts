@@ -14,16 +14,14 @@ import { InvoiceItem } from '../models/invoice-item';
   standalone: true,
 })
 export class InvoiceSummaryComponent implements OnInit {
-  items: InvoiceItem[] = [];
+  allInvoices: InvoiceItem[][] = [];
   company$: Observable<Company | null> = of(null);
-  total = 0;
 
   constructor(private invoiceService: InvoiceService) {}
 
   ngOnInit(): void {
-    this.invoiceService.getInvoiceItems().subscribe((items) => {
-      this.items = items;
-      this.total = this.invoiceService.calculateTotal(items);
+    this.invoiceService.getAllInvoices().subscribe((invoices) => {
+      this.allInvoices = invoices;
     });
 
     this.company$ = this.invoiceService.getCompanyData().pipe(
@@ -32,5 +30,23 @@ export class InvoiceSummaryComponent implements OnInit {
         return of(null);
       }),
     );
+  }
+
+  calculateInvoiceTotal(items: InvoiceItem[]): number {
+    return this.invoiceService.calculateTotal(items);
+  }
+
+  getTotalItemsCount(): number {
+    return this.allInvoices.reduce((sum, invoice) => {
+      return (
+        sum + invoice.reduce((invoiceSum, item) => invoiceSum + item.count, 0)
+      );
+    }, 0);
+  }
+
+  getTotalPrice(): number {
+    return this.allInvoices.reduce((sum, invoice) => {
+      return sum + this.calculateInvoiceTotal(invoice);
+    }, 0);
   }
 }

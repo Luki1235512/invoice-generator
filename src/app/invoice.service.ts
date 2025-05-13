@@ -8,16 +8,37 @@ import { InvoiceItem } from './models/invoice-item';
   providedIn: 'root',
 })
 export class InvoiceService {
-  private invoiceItems = new BehaviorSubject<InvoiceItem[]>([]);
+  private invoicesSubject = new BehaviorSubject<InvoiceItem[][]>([]);
+  private readonly STORAGE_KEY = 'invoices';
+  private isBrowser: boolean;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.isBrowser = typeof window !== 'undefined';
+    this.loadInvoicesFromStorage();
+  }
 
-  getInvoiceItems(): Observable<InvoiceItem[]> {
-    return this.invoiceItems.asObservable();
+  private loadInvoicesFromStorage(): void {
+    if (this.isBrowser) {
+      const savedInvoices = localStorage.getItem(this.STORAGE_KEY);
+      if (savedInvoices) {
+        const invoices = JSON.parse(savedInvoices) as InvoiceItem[][];
+        this.invoicesSubject.next(invoices);
+      }
+    }
   }
 
   setInvoiceItems(items: InvoiceItem[]): void {
-    this.invoiceItems.next(items);
+    const currentInvoices = this.invoicesSubject.value;
+    const updatedInvoices = [...currentInvoices, items];
+    this.invoicesSubject.next(updatedInvoices);
+
+    if (this.isBrowser) {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(updatedInvoices));
+    }
+  }
+
+  getAllInvoices(): Observable<InvoiceItem[][]> {
+    return this.invoicesSubject.asObservable();
   }
 
   getCompanyData(): Observable<Company> {
@@ -25,6 +46,6 @@ export class InvoiceService {
   }
 
   calculateTotal(items: InvoiceItem[]): number {
-    return items.reduce((total, item) => total + item.price * item.count, 0);
+    return items.reduce((sum, item) => sum + item.count * item.price, 0);
   }
 }

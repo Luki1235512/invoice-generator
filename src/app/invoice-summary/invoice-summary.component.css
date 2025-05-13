@@ -19,3 +19,19 @@
 .text-right {
   text-align: right;
 }
+
+.all-invoices {
+  margin-top: 40px;
+}
+
+.invoice-card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.invoice-card h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
