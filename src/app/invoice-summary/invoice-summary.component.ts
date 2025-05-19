@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, Observable, of, Subject, takeUntil } from 'rxjs';
 import { InvoiceService } from '../invoice.service';
 import { Company } from '../models/company';
 import { InvoiceItem } from '../models/invoice-item';
@@ -18,18 +18,49 @@ export class InvoiceSummaryComponent implements OnInit {
   company$: Observable<Company | null> = of(null);
   invoices: InvoiceItem[][] = [];
   currentPage: number = 1;
-  pageSize: number = 2;
+  pageSize: number = 1;
+  loading = true;
+
+  private destroy$ = new Subject<void>();
+
+  private _totalItemsCount: number | null = null;
+  private _totalPrice: number | null = null;
 
   constructor(private invoiceService: InvoiceService) {}
 
   ngOnInit(): void {
-    this.invoiceService.getAllInvoices().subscribe((invoices) => {
-      this.invoices = invoices;
-    });
+    this.loadInvoices();
+    this.loadCompanyData();
+  }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private loadInvoices(): void {
+    this.loading = true;
+    this.invoiceService
+      .getAllInvoices()
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError((err) => {
+          console.error('Failed to load invoices', err);
+          return of([]);
+        }),
+      )
+      .subscribe((invoices) => {
+        this.invoices = invoices;
+        this.loading = false;
+        this._totalItemsCount = null;
+        this._totalPrice = null;
+      });
+  }
+
+  private loadCompanyData(): void {
     this.company$ = this.invoiceService.getCompanyData().pipe(
-      catchError(() => {
-        console.error('Failed to load company data');
+      catchError((err) => {
+        console.error('Failed to load company data', err);
         return of(null);
       }),
     );
@@ -40,17 +71,23 @@ export class InvoiceSummaryComponent implements OnInit {
   }
 
   get totalItemsCount(): number {
-    return this.invoices.reduce((sum, invoice) => {
-      return (
-        sum + invoice.reduce((invoiceSum, item) => invoiceSum + item.count, 0)
-      );
-    }, 0);
+    if (this._totalItemsCount === null) {
+      this._totalItemsCount = this.invoices.reduce((sum, invoice) => {
+        return (
+          sum + invoice.reduce((invoiceSum, item) => invoiceSum + item.count, 0)
+        );
+      }, 0);
+    }
+    return this._totalItemsCount;
   }
 
   get totalPrice(): number {
-    return this.invoices.reduce((sum, invoice) => {
-      return sum + this.calculateInvoiceTotal(invoice);
-    }, 0);
+    if (this._totalPrice === null) {
+      this._totalPrice = this.invoices.reduce((sum, invoice) => {
+        return sum + this.calculateInvoiceTotal(invoice);
+      }, 0);
+    }
+    return this._totalPrice;
   }
 
   get paginatedInvoices(): InvoiceItem[][] {
