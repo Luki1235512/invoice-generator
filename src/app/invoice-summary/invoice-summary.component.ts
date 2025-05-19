@@ -5,10 +5,11 @@ import { catchError, Observable, of } from 'rxjs';
 import { InvoiceService } from '../invoice.service';
 import { Company } from '../models/company';
 import { InvoiceItem } from '../models/invoice-item';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-invoice-summary',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, PaginationComponent],
   templateUrl: './invoice-summary.component.html',
   styleUrl: './invoice-summary.component.css',
   standalone: true,
@@ -17,7 +18,7 @@ export class InvoiceSummaryComponent implements OnInit {
   company$: Observable<Company | null> = of(null);
   invoices: InvoiceItem[][] = [];
   currentPage: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 2;
 
   constructor(private invoiceService: InvoiceService) {}
 
@@ -38,7 +39,7 @@ export class InvoiceSummaryComponent implements OnInit {
     return this.invoiceService.calculateTotal(items);
   }
 
-  getTotalItemsCount(): number {
+  get totalItemsCount(): number {
     return this.invoices.reduce((sum, invoice) => {
       return (
         sum + invoice.reduce((invoiceSum, item) => invoiceSum + item.count, 0)
@@ -46,7 +47,7 @@ export class InvoiceSummaryComponent implements OnInit {
     }, 0);
   }
 
-  getTotalPrice(): number {
+  get totalPrice(): number {
     return this.invoices.reduce((sum, invoice) => {
       return sum + this.calculateInvoiceTotal(invoice);
     }, 0);
@@ -61,25 +62,7 @@ export class InvoiceSummaryComponent implements OnInit {
     return Math.ceil(this.invoices.length / this.pageSize);
   }
 
-  get pages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
-  }
-
-  changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
+  onPageChange(page: number): void {
+    this.currentPage = page;
   }
 }
