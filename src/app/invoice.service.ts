@@ -37,11 +37,11 @@ export class InvoiceService {
     }
   }
 
-  getAllInvoices(): Observable<InvoiceItem[][]> {
+  get allInvoices(): Observable<InvoiceItem[][]> {
     return this.invoicesSubject.asObservable();
   }
 
-  getCompanyData(): Observable<Company> {
+  get companyData(): Observable<Company> {
     return this.http.get<Company>('/api/company');
   }
 

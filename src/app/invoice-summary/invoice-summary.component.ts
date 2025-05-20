@@ -40,8 +40,7 @@ export class InvoiceSummaryComponent implements OnInit {
 
   private loadInvoices(): void {
     this.loading = true;
-    this.invoiceService
-      .getAllInvoices()
+    this.invoiceService.allInvoices
       .pipe(
         takeUntil(this.destroy$),
         catchError((err) => {
@@ -58,7 +57,7 @@ export class InvoiceSummaryComponent implements OnInit {
   }
 
   private loadCompanyData(): void {
-    this.company$ = this.invoiceService.getCompanyData().pipe(
+    this.company$ = this.invoiceService.companyData.pipe(
       catchError((err) => {
         console.error('Failed to load company data', err);
         return of(null);
