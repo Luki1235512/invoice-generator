@@ -1,23 +1,18 @@
 <div class="container">
-  <h2>Invoice Summary</h2>
-
-  <div
-    class="company-info"
-    *ngIf="company$ | async as company; else loadingCompany"
-  >
+  <div *ngIf="company$ | async as company; else loadingCompany">
     <h3>{{ company.name }}</h3>
     <p>{{ company.address }}</p>
     <p>Phone: {{ company.phones.join(", ") }}</p>
   </div>
 
   <ng-template #loadingCompany>
-    <div class="loading">Loading company information...</div>
+    <div>Loading company information...</div>
   </ng-template>
 
-  <div class="all-invoices">
+  <div>
     <h3>All Invoices</h3>
 
-    <div *ngIf="invoices.length === 0" class="alert alert-info">
+    <div *ngIf="invoices.length === 0">
       No invoices found. Please create an invoice first.
     </div>
 
@@ -54,7 +49,7 @@
       </table>
     </div>
 
-    <div class="pagination-controls" *ngIf="invoices.length > pageSize">
+    <div *ngIf="invoices.length > pageSize">
       <app-pagination
         [currentPage]="currentPage"
         [totalPages]="totalPages"
@@ -64,21 +59,13 @@
     </div>
   </div>
 
-  <div class="summary-totals" *ngIf="invoices.length > 0">
+  <div *ngIf="invoices.length > 0">
     <h3>Overall:</h3>
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-6">
-            <p><strong>Total Items Count:</strong> {{ totalItemsCount }}</p>
-          </div>
-          <div class="col-md-6 text-left">
-            <p><strong>Total Price:</strong> {{ totalPrice | currency }}</p>
-          </div>
-        </div>
-      </div>
+    <div>
+      <p><strong>Total Items Count:</strong> {{ totalItemsCount }}</p>
+    </div>
+    <div>
+      <p><strong>Total Price:</strong> {{ totalPrice | currency }}</p>
     </div>
   </div>
-
-  <a routerLink="/" class="btn btn-primary">Back to Form</a>
 </div>

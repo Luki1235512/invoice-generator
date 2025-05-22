@@ -1,1 +1,165 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+
+body {
+  font-family:
+    "Open Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    sans-serif;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+
+.container.mt-4 {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  min-height: 81vh;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button.btn-primary {
+  background-color: #3b9aff;
+  color: white;
+}
+
+button.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+button.btn-secondary {
+  background-color: #3b9aff;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 30px 20px !important;
+  }
+
+  .item-row {
+    flex-direction: column;
+  }
+
+  .buttons-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .buttons-row button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .invoice-card table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .navbar-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .top-navbar {
+    height: auto;
+  }
+
+  .item-row .form-group {
+    width: 100%;
+  }
+
+  .item-row button {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .invoice-card th,
+  .invoice-card td {
+    padding: 4px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main-content {
+    padding: 30px 60px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  input,
+  select,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-control {
+    width: 100%;
+  }
+
+  h2,
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

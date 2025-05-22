@@ -1,11 +1,9 @@
 <div class="container">
-  <h2>Invoice Generator</h2>
+  <h2>Generate invoice</h2>
 
   <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
     <div formArrayName="items">
-      <div *ngIf="items.length === 0" class="alert alert-warning">
-        Please add items
-      </div>
+      <div *ngIf="items.length === 0">Please add items</div>
 
       <div
         *ngFor="let item of items.controls; let i = index"

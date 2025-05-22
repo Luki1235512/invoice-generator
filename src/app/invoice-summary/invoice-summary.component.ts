@@ -18,7 +18,7 @@ export class InvoiceSummaryComponent implements OnInit {
   company$: Observable<Company | null> = of(null);
   invoices: InvoiceItem[][] = [];
   currentPage: number = 1;
-  pageSize: number = 1;
+  pageSize: number = 3;
   loading = true;
 
   private destroy$ = new Subject<void>();
