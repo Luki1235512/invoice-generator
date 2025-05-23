@@ -7,20 +7,20 @@
   gap: 10px;
   margin-bottom: 15px;
   padding: 10px;
-  border: 1px solid #efefef;
+  border: 1px solid var(--color-card);
   border-radius: 10px;
   align-items: flex-start;
-  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
 }
 
 input {
-  border: 1px solid #d3d2d2;
+  border: 1px solid var(--color-input-border);
   border-radius: 5px;
 }
 
 input:focus {
   outline: none;
-  border: 1px solid #c0bebe;
+  border: 1px solid var(--color-input-focus-border);
   box-shadow: 1px 1px 5px #efefef;
 }
 
@@ -37,6 +37,6 @@ input:focus {
 }
 
 .invalid-feedback {
-  color: #dc3545;
+  color: var(--color-danger);
   font-size: 0.875em;
 }

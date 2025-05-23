@@ -4,9 +4,9 @@
   left: 0;
   right: 0;
   height: 80px;
-  background-color: #007bff;
-  color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  box-shadow: var(--shadow-md);
   z-index: 1000;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .navbar-link {
-  color: white;
+  color: var(--color-white);
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -37,11 +37,11 @@
 }
 
 .navbar-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--overlay-light);
 }
 
 .navbar-link.active {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--overlay-medium);
 }
 
 .main-content {

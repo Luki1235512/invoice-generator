@@ -10,6 +10,7 @@
   </ng-template>
 
   <div>
+    <hr />
     <h3>All Invoices</h3>
 
     <div *ngIf="invoices.length === 0">
@@ -60,7 +61,8 @@
   </div>
 
   <div *ngIf="invoices.length > 0">
-    <h3>Overall:</h3>
+    <hr />
+    <h3>Overall</h3>
     <div>
       <p><strong>Total Items Count:</strong> {{ totalItemsCount }}</p>
     </div>

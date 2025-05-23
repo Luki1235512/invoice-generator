@@ -1,5 +1,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
 
+:root {
+  --color-text: #333;
+  --color-background: #f0f0f0;
+  --color-white: #ffffff;
+  --color-button-default: #f8f9fa;
+  --color-primary: #399eff;
+  --color-danger: #dc3545;
+  --color-border: #d6d6d6;
+  --color-blue: #007bff;
+  --color-hover: #0056b3;
+  --color-hover-bg: #e9ecef;
+  --color-link-border: #dee2e6;
+  --color-card: #efefef;
+  --color-footer-bg: #e2e2e2cd;
+  --color-invoice-card-h4: #f6f6f6;
+  --color-input-border: #d3d2d2;
+  --color-input-focus-border: #c0bebe;
+
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-card: 1px 5px 10px rgba(0, 0, 0, 0.1);
+
+  --overlay-light: rgba(255, 255, 255, 0.1);
+  --overlay-medium: rgba(255, 255, 255, 0.2);
+}
+
 body {
   font-family:
     "Open Sans",
@@ -13,8 +40,8 @@ body {
     "Helvetica Neue",
     sans-serif;
   line-height: 1.5;
-  color: #333;
-  background-color: #f0f0f0;
+  color: var(--color-text);
+  background-color: var(--color-background);
   margin: 0;
   padding: 0;
 }
@@ -37,11 +64,12 @@ button {
 }
 
 .container.mt-4 {
-  background-color: #ffffff;
+  background-color: var(--color-white);
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   padding: 20px;
-  min-height: 81vh;
+  margin-top: 20px;
+  min-height: 84vh;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -55,28 +83,33 @@ button {
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  background-color: #f8f9fa;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-button-default);
+  box-shadow: var(--shadow-sm);
 }
 
 button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
 }
 
 button.btn-primary {
-  background-color: #3b9aff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 button.btn-danger {
-  background-color: #dc3545;
-  color: white;
+  background-color: var(--color-danger);
+  color: var(--color-white);
 }
 
 button.btn-secondary {
-  background-color: #3b9aff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
 }
 
 @media (max-width: 768px) {

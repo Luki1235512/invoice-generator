@@ -4,7 +4,6 @@
 
 .loading {
   font-style: italic;
-  color: #777;
 }
 
 .text-right {
@@ -12,11 +11,11 @@
 }
 
 .invoice-card {
-  border: 1px solid #efefef;
+  border: 1px solid var(--color-card);
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;
-  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-card);
 }
 
 .invoice-card h4 {
@@ -39,7 +38,7 @@
 }
 
 .invoice-card tfoot tr {
-  background-color: #e2e2e2cd;
+  background-color: var(--color-footer-bg);
   font-weight: 500;
 }
 
@@ -49,7 +48,7 @@
 }
 
 .invoice-card h4 {
-  background-color: #f6f6f6;
+  background-color: var(--color-invoice-card-h4);
   font-weight: 500;
   margin-bottom: 10px;
   border-radius: 5px;
