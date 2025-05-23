@@ -13,9 +13,7 @@
     <hr />
     <h3>All Invoices</h3>
 
-    <div *ngIf="invoices.length === 0">
-      No invoices found. Please create an invoice first.
-    </div>
+    <div *ngIf="invoices.length === 0">No items</div>
 
     <div
       *ngFor="let invoice of paginatedInvoices; let i = index"
