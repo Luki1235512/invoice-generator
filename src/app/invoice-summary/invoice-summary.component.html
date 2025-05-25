@@ -50,9 +50,11 @@
 
     <div *ngIf="invoices.length > pageSize">
       <app-pagination
+        [items]="invoices"
+        [pageSize]="pageSize"
         [currentPage]="currentPage"
-        [totalPages]="totalPages"
         (pageChange)="onPageChange($event)"
+        (paginatedItemsChange)="onPaginatedItemsChange($event)"
       >
       </app-pagination>
     </div>

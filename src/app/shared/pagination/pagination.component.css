@@ -16,6 +16,12 @@
   color: var(--color-white);
 }
 
+.page-item.disabled .page-link {
+  color: var(--page-item-disabled);
+  pointer-events: none;
+  cursor: auto;
+}
+
 .page-link {
   position: relative;
   display: block;
