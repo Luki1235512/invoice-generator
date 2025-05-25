@@ -17,6 +17,7 @@ import { PaginationComponent } from '../shared/pagination/pagination.component';
 export class InvoiceSummaryComponent implements OnInit {
   company$: Observable<Company | null> = of(null);
   invoices: InvoiceItem[][] = [];
+  paginatedInvoices: InvoiceItem[][] = [];
   currentPage: number = 1;
   pageSize: number = 3;
   loading = true;
@@ -89,16 +90,11 @@ export class InvoiceSummaryComponent implements OnInit {
     return this._totalPrice;
   }
 
-  get paginatedInvoices(): InvoiceItem[][] {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    return this.invoices.slice(startIndex, startIndex + this.pageSize);
-  }
-
-  get totalPages(): number {
-    return Math.ceil(this.invoices.length / this.pageSize);
-  }
-
   onPageChange(page: number): void {
     this.currentPage = page;
+  }
+
+  onPaginatedItemsChange(items: InvoiceItem[][]): void {
+    this.paginatedInvoices = items;
   }
 }
