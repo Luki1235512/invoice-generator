@@ -38,7 +38,6 @@ export class InvoiceSummaryComponent implements OnInit {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
   private loadInvoices(): void {
     this.loading = true;
     this.invoiceService.allInvoices
@@ -54,6 +53,15 @@ export class InvoiceSummaryComponent implements OnInit {
         this.loading = false;
         this._totalItemsCount = null;
         this._totalPrice = null;
+
+        if (this.invoices.length > 0) {
+          this.paginatedInvoices = this.invoices.slice(
+            0,
+            Math.min(this.pageSize, this.invoices.length),
+          );
+        } else {
+          this.paginatedInvoices = [];
+        }
       });
   }
 
