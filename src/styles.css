@@ -17,6 +17,7 @@
   --color-invoice-card-h4: #f6f6f6;
   --color-input-border: #d3d2d2;
   --color-input-focus-border: #c0bebe;
+  --color-page-item-disabled: #6c757d;
 
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.1);
