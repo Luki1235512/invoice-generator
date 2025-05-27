@@ -18,7 +18,6 @@ export class InvoiceSummaryComponent implements OnInit {
   company$: Observable<Company | null> = of(null);
   invoices: InvoiceItem[][] = [];
   paginatedInvoices: InvoiceItem[][] = [];
-  currentPage: number = 1;
   pageSize: number = 3;
   loading = true;
 
@@ -38,6 +37,7 @@ export class InvoiceSummaryComponent implements OnInit {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
   private loadInvoices(): void {
     this.loading = true;
     this.invoiceService.allInvoices
@@ -53,15 +53,6 @@ export class InvoiceSummaryComponent implements OnInit {
         this.loading = false;
         this._totalItemsCount = null;
         this._totalPrice = null;
-
-        if (this.invoices.length > 0) {
-          this.paginatedInvoices = this.invoices.slice(
-            0,
-            Math.min(this.pageSize, this.invoices.length),
-          );
-        } else {
-          this.paginatedInvoices = [];
-        }
       });
   }
 
@@ -96,10 +87,6 @@ export class InvoiceSummaryComponent implements OnInit {
       }, 0);
     }
     return this._totalPrice;
-  }
-
-  onPageChange(page: number): void {
-    this.currentPage = page;
   }
 
   onPaginatedItemsChange(items: InvoiceItem[][]): void {

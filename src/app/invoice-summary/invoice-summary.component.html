@@ -16,10 +16,15 @@
     <div *ngIf="invoices.length === 0">No items</div>
 
     <div
-      *ngFor="let invoice of paginatedInvoices; let i = index"
+      *ngFor="
+        let invoice of invoices.length > pageSize
+          ? paginatedInvoices
+          : invoices;
+        let i = index
+      "
       class="invoice-card"
     >
-      <h4>Invoice #{{ (currentPage - 1) * pageSize + i + 1 }}</h4>
+      <h4>Invoice #{{ i + 1 }}</h4>
       <table class="table">
         <thead>
           <tr>
@@ -52,8 +57,7 @@
       <app-pagination
         [items]="invoices"
         [pageSize]="pageSize"
-        [currentPage]="currentPage"
-        (pageChange)="onPageChange($event)"
+        [initialPage]="1"
         (paginatedItemsChange)="onPaginatedItemsChange($event)"
       >
       </app-pagination>

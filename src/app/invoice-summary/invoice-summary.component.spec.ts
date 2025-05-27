@@ -80,8 +80,9 @@ describe('InvoiceSummaryComponent', () => {
     expect(component.totalItemsCount).toBe(3);
   });
 
-  it('should update page on pagination change', () => {
-    component.onPageChange(2);
-    expect(component.currentPage).toBe(2);
+  it('should update paginated invoices when onPaginatedItemsChange is called', () => {
+    const testInvoices = [mockInvoices[0]];
+    component.onPaginatedItemsChange(testInvoices);
+    expect(component.paginatedInvoices).toEqual(testInvoices);
   });
 });

@@ -17,14 +17,18 @@ import {
 export class PaginationComponent<T> implements OnChanges {
   @Input() items: T[] = [];
   @Input() pageSize: number = 10;
-  @Input() currentPage: number = 1;
+  @Input() initialPage: number = 1;
 
-  @Output() pageChange = new EventEmitter<number>();
   @Output() paginatedItemsChange = new EventEmitter<T[]>();
+  @Output() pageChange = new EventEmitter<number>();
 
+  currentPage: number = 1;
   totalPages: number = 1;
 
   ngOnChanges(): void {
+    if (this.currentPage !== this.initialPage) {
+      this.currentPage = this.initialPage;
+    }
     this.updatePagination();
   }
 
@@ -39,12 +43,12 @@ export class PaginationComponent<T> implements OnChanges {
     );
 
     this.paginatedItemsChange.emit(paginatedItems);
+    this.pageChange.emit(this.currentPage);
   }
 
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
       this.currentPage = page;
-      this.pageChange.emit(this.currentPage);
       this.updatePagination();
     }
   }
